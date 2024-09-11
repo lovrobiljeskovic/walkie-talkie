@@ -162,7 +162,7 @@ export default function Home() {
 
   // Effect to handle incoming messages and voice data
   useEffect(() => {
-    if (!socket) return;
+    if (!socket || !isJoined) return;
 
     socket.on("message", (message: Message) => {
       setMessages((prevMessages) => [...prevMessages, message]);
@@ -182,7 +182,7 @@ export default function Home() {
       socket.off("message");
       socket.off("voice");
     };
-  }, [socket]);
+  }, [socket, isJoined]);
 
   // Function to play the next audio in the queue
   const playNextAudio = async () => {
